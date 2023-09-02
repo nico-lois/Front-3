@@ -22,32 +22,41 @@ function actualizarTabla() {
   let tbody = document.querySelector("#tablaCadeterias tbody");
   // Limpiar la tabla actual
   tbody.innerHTML = "";
+
+  const inputBusqueda = document.getElementById("txttofind");
+  const valorBusqueda = inputBusqueda.value.toLowerCase();
+
   if (cadeterias && Array.isArray(cadeterias)) {
     cadeterias.forEach(function (cadeteria, index) {
-      // Crear la fila y agregar las celdas
-      let row = document.createElement("tr");
-      row.innerHTML = ` 
-          <td>${cadeteria.id}</td>       
-          <td>${cadeteria.nombreCadeteria}</td>
-          <td>${cadeteria.direccionEntrega}</td>
-          <td>${cadeteria.mail}</td>
-          <td>${cadeteria.telefono}</td>  
-          
-          <td>
-          <a href="#" onclick="editar(${cadeteria.id})">
-          <i class='bx bx-edit-alt' ></i>
-              </a>
-          </td>
-          
-          <td>
-          <a href="#" onclick="eliminar(${cadeteria.id})">
-          <i class='bx bx-message-square-x'></i>
-              </a>
-          </td>`;
-      if (index % 2 != 0) {
-        row.classList.add("fila-par");
+      if (
+        valorBusqueda === "" ||
+        cadeteria.nombreCadeteria.toLowerCase().includes(valorBusqueda)
+      ) {
+        // Crear la fila y agregar las celdas
+        let row = document.createElement("tr");
+        row.innerHTML = ` 
+                  <td>${cadeteria.id}</td>       
+                  <td>${cadeteria.nombreCadeteria}</td>
+                  <td>${cadeteria.direccionEntrega}</td>
+                  <td>${cadeteria.mail}</td>
+                  <td>${cadeteria.telefono}</td>  
+                  
+                  <td>
+                      <a href="#" onclick="editar(${cadeteria.id})">
+                          <i class='bx bx-edit-alt'></i>
+                      </a>
+                  </td>
+                  
+                  <td>
+                      <a href="#" onclick="eliminar(${cadeteria.id})">
+                          <i class='bx bx-message-square-x'></i>
+                      </a>
+                  </td>`;
+        if (index % 2 != 0) {
+          row.classList.add("fila-par");
+        }
+        tbody.appendChild(row);
       }
-      tbody.appendChild(row);
     });
   }
 }

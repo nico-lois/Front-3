@@ -110,6 +110,7 @@ function graficaPedidosPorCliente(pedidos) {
     "Cantidad de Pedidos"
   );
 }
+
 graficaTotalDePedidosDeLosUltimos12Meses();
 function graficaTotalDePedidosDeLosUltimos12Meses() {
   const currentDate = new Date();

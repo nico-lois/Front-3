@@ -23,50 +23,60 @@ function actualizarTabla() {
   let tbody = document.querySelector("#tablaClientes tbody");
   // Limpiar la tabla actual
   tbody.innerHTML = "";
+
+  const inputBusqueda = document.getElementById("txttofind");
+  const valorBusqueda = inputBusqueda.value.toLowerCase();
+
   if (clientes && Array.isArray(clientes)) {
     clientes.forEach(function (cliente, index) {
-      // Crear la fila y agregar las celdas
-      let row = document.createElement("tr");
-      row.innerHTML = `     
-          <td>${cliente.nombreFantasia}</td>
-          <td>${cliente.razonSocial}</td>
-          <td>${cliente.mail}</td>
-          <td>${cliente.nombreCompleto}</td>  
-          <td>${cliente.nombreResponsable}</td>  
-          <td>${cliente.celular}</td>  
-          <td>${cliente.cadeteriaDePreferencia.nombreCadeteria}</td>  
-          
-          <td>
-        <a href="#" onclick="editar(${cliente.id})">
-        <i class='bx bx-edit-alt' ></i>
-            </a>
-        </td>`;
-      if (localStorage.getItem("tipo") == "Admin") {
-        row.innerHTML += `<td>
-        <a href="#" onclick="modalCargarPDF(${cliente.id})">
-        <i class='bx bx-upload'></i>
-        </a>
-      </td>`;
+      // Filtrar los clientes que coinciden con el valor de búsqueda
+      if (
+        cliente.nombreFantasia.toLowerCase().includes(valorBusqueda) ||
+        cliente.razonSocial.toLowerCase().includes(valorBusqueda)
+      ) {
+        // Crear la fila y agregar las celdas
+        let row = document.createElement("tr");
+        row.innerHTML = `     
+                  <td>${cliente.nombreFantasia}</td>
+                  <td>${cliente.razonSocial}</td>
+                  <td>${cliente.mail}</td>
+                  <td>${cliente.nombreCompleto}</td>  
+                  <td>${cliente.nombreResponsable}</td>  
+                  <td>${cliente.celular}</td>  
+                  <td>${cliente.cadeteriaDePreferencia.nombreCadeteria}</td>  
+                  
+                  <td>
+                      <a href="#" onclick="editar(${cliente.id})">
+                          <i class='bx bx-edit-alt'></i>
+                      </a>
+                  </td>`;
+        if (localStorage.getItem("tipo") == "Admin") {
+          row.innerHTML += `<td>
+                      <a href="#" onclick="modalCargarPDF(${cliente.id})">
+                          <i class='bx bx-upload'></i>
+                      </a>
+                  </td>`;
+        }
+        if (cliente.pdfData != null) {
+          row.innerHTML += `<td>
+                      <a href="#" onclick="abrirPDF(${cliente.id})">
+                          <i class='bx bx-download'></i>
+                      </a>
+                  </td>`;
+        } else {
+          row.innerHTML += `<td>-</td>`;
+        }
+        row.innerHTML += `
+                  <td>
+                      <a href="#" onclick="eliminar(${cliente.id})">
+                          <i class='bx bx-message-square-x'></i>
+                      </a>
+                  </td>`;
+        if (index % 2 != 0) {
+          row.classList.add("fila-par");
+        }
+        tbody.appendChild(row);
       }
-      if (cliente.pdfData != null) {
-        row.innerHTML += `<td>
-      <a href="#" onclick="abrirPDF(${cliente.id})">
-      <i class='bx bx-download'></i>
-          </a>
-      </td>`;
-      } else {
-        row.innerHTML += `<td>-</td>`;
-      }
-      row.innerHTML += `
-        <td>
-        <a href="#" onclick="eliminar(${cliente.id})">
-        <i class='bx bx-message-square-x'></i>
-            </a>
-        </td>`;
-      if (index % 2 != 0) {
-        row.classList.add("fila-par");
-      }
-      tbody.appendChild(row);
     });
   }
 }

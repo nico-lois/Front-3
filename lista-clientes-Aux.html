@@ -88,13 +88,16 @@
         <i class="bx bxs bxs-group icon"></i>
         <h2>Listado de Clientes</h2>
 
-        <!-- <div class="btnAgregarNew">
-        <a href="/agregar-cliente-vista-aux.html">
-          <i class='bx bxs-user-plus'></i>
-          <span class="">Nuevo</span>
-        </a>
-        </div> -->
-
+        <label for="txttofind"></label>
+        <input id="txttofind" type="text" />
+        <input
+          type="button"
+          class="btnConfirmar"
+          value="Buscar"
+          id="btnBuscar"
+          onclick="actualizarTabla()"
+        />
+        <br /><br />
         <div>
           <table class="table" id="tablaClientes">
             <thead>

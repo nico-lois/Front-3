@@ -7,13 +7,20 @@ actualizarTabla();
 function actualizarTabla() {
   let tbody = document.querySelector("#tablaClientes tbody");
   // Limpiar la tabla actual
+  const inputBusqueda = document.getElementById("txttofind");
+  const valorBusqueda = inputBusqueda.value.toLowerCase();
   tbody.innerHTML = "";
   if (clientes && Array.isArray(clientes)) {
     clientes.forEach(function (cliente, index) {
-      console.log("index", index);
-      // Crear la fila y agregar las celdas
-      let row = document.createElement("tr");
-      row.innerHTML = `       
+      // Filtrar los clientes que coinciden con el valor de búsqueda
+      if (
+        cliente.nombreFantasia.toLowerCase().includes(valorBusqueda) ||
+        cliente.razonSocial.toLowerCase().includes(valorBusqueda)
+      ) {
+        console.log("index", index);
+        // Crear la fila y agregar las celdas
+        let row = document.createElement("tr");
+        row.innerHTML = `       
       <td>${cliente.nombreFantasia}</td>
       <td>${cliente.razonSocial}</td>
       <td>${cliente.mail}</td>
@@ -21,10 +28,11 @@ function actualizarTabla() {
       <td>${cliente.nombreResponsable}</td>  
       <td>${cliente.celular}</td>  
       <td>${cliente.cadeteriaDePreferencia.nombreCadeteria}</td>`;
-      if (index % 2 != 0) {
-        row.classList.add("fila-par");
+        if (index % 2 != 0) {
+          row.classList.add("fila-par");
+        }
+        tbody.appendChild(row);
       }
-      tbody.appendChild(row);
     });
   }
 }

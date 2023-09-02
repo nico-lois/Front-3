@@ -8,7 +8,8 @@
     <!-- Libreria de iconos -->
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
   </head>
   <body>
@@ -87,6 +88,16 @@
     <section class="home content">
       <div class="form-group">
         <h2>Listado de Cadeterias</h2>
+
+        <label for="txttofind"></label>
+        <input id="txttofind" type="text" />
+        <input
+          type="button"
+          class="btnConfirmar"
+          value="Buscar"
+          id="btnBuscar"
+          onclick="actualizarTabla()"
+        />
 
         <div class="btnAgregarNew">
           <a href="/agregar-cadeteria-Admin.html">
