@@ -250,6 +250,7 @@ async function actualizarPedidos() {
 
 function modalValorarPedido(idPedido) {
   let pedido = pedidos.find((p) => p.id === idPedido);
+
   if (pedido) {
     // Mostrar el modal
     let modalValoracion = document.getElementById("modalValoracion");
@@ -259,13 +260,24 @@ function modalValorarPedido(idPedido) {
     // Obtener los botones de estrella
     const botonesEstrella = document.querySelectorAll(".btnValorar");
 
+    // Define la función de manejo de clic por separado
+    function clickHandler(index) {
+      return function () {
+        const valorEstrella = index + 1; // Valor de la estrella (1 al 5)
+        valorar(valorEstrella, pedido);
+        modalValoracion.style.display = "none";
+
+        // Remueve el event listener después de ejecutarlo una vez
+        botonesEstrella[index].removeEventListener(
+          "click",
+          clickHandler(index)
+        );
+      };
+    }
+
     // Agregar evento a cada botón de estrella
     botonesEstrella.forEach((boton, index) => {
-      boton.addEventListener("click", function () {
-        const valorEstrella = index + 1; // Valor de la estrella (1 al 5)
-        valorar(valorEstrella, pedido); // Llama a la función valorar() con el valor de la estrella
-        modalValoracion.style.display = "none";
-      });
+      boton.addEventListener("click", clickHandler(index));
     });
 
     // Agregar evento al botón de cerrar

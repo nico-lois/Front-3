@@ -40,25 +40,66 @@ function generarPDF(pedidoId) {
     }
 
     let cliente = pedido.cliente;
-
+    let content = [];
     // Definir la estructura del contenido del PDF
-    const content = [
-      { text: "Remitente: URURACER" },
-      { text: "Teléfono: 24094338" },
-      {
-        text:
-          "Quien recibe: " +
-          cliente.nombreCompleto +
-          " - " +
-          cliente.nombreFantasia,
-      },
-      { text: "Entrega: " + cliente.direccionDeEntrega },
-      { text: "Retira en Agencia: " + retiraEnAgencia },
-    ];
+    if (retiraEnAgencia == "Sí") {
+      content = [
+        { text: "QUIEN ENVIA", style: "header", margin: [0, 0, 0, 10] },
+        { text: "TEFELE SRL - Ururacer", style: "subheader" },
+        {
+          text: "Teléfono: 24094338",
+          style: "subheader",
+          margin: [0, 0, 0, 40],
+        },
+
+        { text: "QUIEN RECIBE", style: "header", margin: [0, 0, 0, 10] },
+        {
+          text: "Nombre: " + cliente.nombreCompleto,
+          style: "subheader",
+        },
+        {
+          text: "Local Comercial: " + cliente.nombreFantasia,
+          style: "subheader",
+        },
+
+        { text: "EL CLIENTE RETIRA EN AGENCIA", style: "subheader" },
+      ];
+    } else {
+      content = [
+        { text: "QUIEN ENVIA", style: "header", margin: [0, 0, 0, 10] },
+        { text: "TEFELE SRL - Ururacer", style: "subheader" },
+        {
+          text: "Teléfono: 24094338",
+          style: "subheader",
+          margin: [0, 0, 0, 40],
+        },
+
+        { text: "QUIEN RECIBE", style: "header", margin: [0, 0, 0, 10] },
+        {
+          text: "Nombre: " + cliente.nombreCompleto,
+          style: "subheader",
+        },
+        {
+          text: "Local Comercial: " + cliente.nombreFantasia,
+          style: "subheader",
+        },
+        {
+          text: "Direccion De Entrega: " + cliente.direccionDeEntrega,
+          style: "subheader",
+        },
+      ];
+    }
+
+    const styles = {
+      header: { fontSize: 34, bold: true },
+      subheader: { fontSize: 28, bold: true },
+      normalText: { fontSize: 18 },
+    };
 
     // Configurar el documento PDF
     const docDefinition = {
       content: content,
+      styles: styles, // Aquí se incluyen los estilos
     };
 
     // Generar el PDF utilizando pdfmake

@@ -13,8 +13,7 @@ function actualizarTabla() {
       console.log("index", index);
       // Crear la fila y agregar las celdas
       let row = document.createElement("tr");
-      row.innerHTML = `  
-      <td>${cliente.id}</td>          
+      row.innerHTML = `       
       <td>${cliente.nombreFantasia}</td>
       <td>${cliente.razonSocial}</td>
       <td>${cliente.mail}</td>
@@ -85,5 +84,3 @@ async function eliminar(id) {
     // Código para cancelar la acción
   }
 }
-
-//Aca el fetch /eliminarCliente

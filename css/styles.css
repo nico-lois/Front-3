@@ -314,6 +314,8 @@ p {
 
 .pedidosRealizados {
   margin-bottom: 20px;
+  /* padding-bottom: 5px;
+  border-bottom: 2px solid var(--primary-color); */
 }
 
 .home h2 {
@@ -793,6 +795,18 @@ body.dark .table th {
 .fila-sin-stock {
   background-color: #ffe8cc;
   /* Color naranja suave */
+}
+
+input[type="text"] {
+  height: 33px;
+}
+
+input[type="date"] {
+  height: 33px;
+}
+
+select {
+  height: 33px;
 }
 
 .password-field {

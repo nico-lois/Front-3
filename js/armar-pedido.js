@@ -7,12 +7,14 @@ var idPedido = pedidoParaArmar.id;
 if (pedidoParaArmar) {
   // Llenar los campos del formulario con los datos del pedido
   document.getElementById("fechaMostrada").textContent = pedidoParaArmar.fecha;
+  //   pedidoParaArmar.observacion;
+  document.getElementById("cadeteriaId").textContent =
+    pedidoParaArmar.cadeteria.nombreCadeteria;
+  document.getElementById("obs").textContent = pedidoParaArmar.observaciones;
   document.getElementById("nombreCliente").textContent =
     pedidoParaArmar.cliente.nombreFantasia +
     " - " +
-    pedidoParaArmar.cliente.razonSocial; // Esto no se debe poder editar
-  // document.getElementById("observacionesPedido").value =
-  //   pedidoParaArmar.observacion;
+    pedidoParaArmar.cliente.razonSocial;
 
   // Rellenar la tabla de artículos
   const tablaArticulos = document.getElementById("tablaArticulos");
@@ -76,8 +78,8 @@ if (pedidoParaArmar) {
   });
 
   // Rellenar la selección de cadeterías
-  const selectCadeteria = document.getElementById("cadeteriaId");
-  selectCadeteria.innerHTML = `<option>${pedidoParaArmar.cadeteria.nombreCadeteria}</option>`;
+  // const selectCadeteria = document.getElementById("cadeteriaId");
+  // selectCadeteria.innerHTML = `<option>${pedidoParaArmar.cadeteria.nombreCadeteria}</option>`;
 }
 
 function actualizarArticulosSeleccionados() {

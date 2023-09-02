@@ -11,7 +11,6 @@ console.log(typeof jsPDF);
 
 actualizarNombreVendedor();
 actualizarTablaPedidos();
-cargarClientes();
 cargarModoActual();
 
 // Modo oscuro
@@ -22,25 +21,6 @@ function cargarModoActual() {
   } else {
     console.log("Estoy en modo = ", modoOscuroGuardado);
     body.classList.remove("dark");
-  }
-}
-
-// CARGAR LOS CLIENTES AL COMBO
-function cargarClientes() {
-  var clienteSelect = document.getElementById("filtroCliente");
-  // Agregar la opción "Seleccione..." al principio del select
-  var optionSeleccione = document.createElement("option");
-  optionSeleccione.value = ""; // Valor vacío
-  optionSeleccione.textContent = "Seleccione...";
-  clienteSelect.appendChild(optionSeleccione);
-
-  if (clientes && clientes.length > 0) {
-    clientes.forEach(function (cliente) {
-      var option = document.createElement("option");
-      option.value = cliente.id;
-      option.textContent = cliente.nombreFantasia + " - " + cliente.razonSocial;
-      clienteSelect.appendChild(option);
-    });
   }
 }
 
@@ -77,10 +57,12 @@ function actualizarTablaPedidos() {
     //SEGUNDO FILTRO
     let filtroFechaDesde = document.getElementById("filtroFechaDesde").value;
     let filtroFechaHasta = document.getElementById("filtroFechaHasta").value;
-    let filtroCliente = document.getElementById("filtroCliente").value;
+    let filtroCliente = document.getElementById("inputBuscarCliente").value; //cambiar esta
+
     console.log("filtrofechaDESDE", filtroFechaDesde);
     console.log("filtroFechaHASTA", filtroFechaHasta);
     console.log("filtroCLIENTE", filtroCliente);
+
     if (filtroFechaDesde != "") {
       pedidosFiltrados = pedidosFiltrados.filter(
         (p) => p.fecha >= filtroFechaDesde
@@ -95,9 +77,11 @@ function actualizarTablaPedidos() {
 
     if (filtroCliente != "") {
       pedidosFiltrados = pedidosFiltrados.filter(
-        (p) => p.cliente.id == filtroCliente
+        (p) =>
+          p.cliente.nombreFantasia + " - " + p.cliente.razonSocial ==
+          filtroCliente
       );
-    }
+    } //ESTA ES LA OTRA
 
     // Recorre los pedidos y agrega las filas a la tabla
     pedidosFiltrados.forEach(function (pedido, index) {
@@ -220,25 +204,18 @@ function mostrarDetallePedido(idPedido) {
   }
 }
 
-//MODAL
-// Función para cerrar el modal
+// Función para cerrar el modal de pedido //////////
 function cerrarModal() {
   let modal = document.getElementById("pedidoModal");
   modal.classList.remove("show");
   modal.style.display = "none";
   document.body.classList.remove("modal-open");
 }
-
-// Evento para cerrar el modal al hacer clic en la "x" de la derecha y fuera del modal
 document
-  .querySelector(".modal-header .close")
+  .getElementById("btnCerrarModal")
   .addEventListener("click", cerrarModal);
 
-document.querySelector(".modal").addEventListener("click", function (event) {
-  if (event.target === this) {
-    cerrarModal();
-  }
-});
+//////////////////////////////////////////////////////
 
 async function eliminarPedido(idPedido) {
   let confirmacion = confirm(
@@ -340,3 +317,56 @@ async function actualizarPedidos() {
     alert(request.status);
   }
 }
+
+//COPIAR TODO ESTO
+function buscarClientes() {
+  const textoBusqueda = inputBuscarCliente.value.trim().toLowerCase();
+  const clientesCoincidentes = clientes.filter(
+    (cliente) =>
+      cliente.nombreFantasia.toLowerCase().includes(textoBusqueda) ||
+      cliente.razonSocial.toLowerCase().includes(textoBusqueda)
+  );
+
+  if (clientesCoincidentes.length === 1) {
+    console.log("un solo cliente coincide", clientesCoincidentes);
+    inputBuscarCliente.value =
+      clientesCoincidentes[0].nombreFantasia +
+      " - " +
+      clientesCoincidentes[0].razonSocial;
+  } else if (clientesCoincidentes.length > 1) {
+    // Mostrar el modal con los clientes coincidentes
+    console.log("varios coinciden", clientesCoincidentes);
+    mostrarModalSeleccionCliente(clientesCoincidentes);
+  }
+}
+
+// Función para mostrar el modal con los clientes coincidentes
+function mostrarModalSeleccionCliente(clientesCoincidentes) {
+  const listaClientesElement = document.getElementById("clientes");
+  listaClientesElement.innerHTML = "";
+
+  clientesCoincidentes.forEach((cliente) => {
+    const li = document.createElement("li");
+    li.textContent = `${cliente.nombreFantasia} - ${cliente.razonSocial}`;
+    li.onclick = function () {
+      inputBuscarCliente.value =
+        cliente.nombreFantasia + " - " + cliente.razonSocial;
+      cerrarModalSeleccionCliente();
+    };
+    listaClientesElement.appendChild(li);
+  });
+
+  modalSeleccionCliente.style.display = "block";
+}
+
+// Función para cerrar el modal de selección de cliente
+function cerrarModalSeleccionCliente() {
+  modalSeleccionCliente.style.display = "none";
+}
+
+// Cerrar el modal si se hace clic fuera de él
+window.onclick = function (event) {
+  if (event.target == modalSeleccionCliente) {
+    cerrarModalSeleccionCliente();
+  }
+};

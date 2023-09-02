@@ -138,13 +138,14 @@ function actualizarTablaArticulos() {
   // Limpiar la tabla actual
   tbody.innerHTML = "";
   let contador = 1;
+  let numerador = 1;
   articulos.forEach(function (articulo) {
     if (articulo.eliminado != true) {
       console.log("Articulo en el foreach", articulo);
       // Crear la fila y agregar las celdas
       let row = document.createElement("tr");
       row.innerHTML = `
-        <td>${contador}</td> 
+        <td>${numerador}</td> 
         <td>${articulo.nombre}</td> 
         <td>${articulo.cantidad}</td> 
         <td>
@@ -159,13 +160,13 @@ function actualizarTablaArticulos() {
             </a>
         </td>
         `;
-      console.log("if", !articulo.stock);
       if (!articulo.stock) {
         row.classList.add("fila-sin-stock");
       }
       tbody.appendChild(row);
-      contador++;
+      numerador++;
     }
+    contador++;
   });
 }
 

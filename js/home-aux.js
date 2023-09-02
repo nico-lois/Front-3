@@ -3,7 +3,6 @@
 var pedidos = JSON.parse(localStorage.getItem("pedidos"));
 var clientes = JSON.parse(localStorage.getItem("clientes"));
 var cadeterias = JSON.parse(localStorage.getItem("cadeterias"));
-var pedidos = JSON.parse(localStorage.getItem("pedidos"));
 console.log("pedido", pedidos);
 console.log("Prueba de Clientes", clientes);
 console.log("Prueba de Cadeterias", cadeterias);
@@ -12,7 +11,6 @@ console.log(auxDep);
 
 actualizarNombreAux();
 actualizarTablaPedidos();
-cargarClientes();
 
 function actualizarNombreAux() {
   if (auxDep) {
@@ -23,29 +21,11 @@ function actualizarNombreAux() {
   }
 }
 
-function cargarClientes() {
-  var clienteSelect = document.getElementById("filtroCliente");
-  // Agregar la opción "Seleccione..." al principio del select
-  var optionSeleccione = document.createElement("option");
-  optionSeleccione.value = ""; // Valor vacío
-  optionSeleccione.textContent = "Seleccione...";
-  clienteSelect.appendChild(optionSeleccione);
-
-  if (clientes && clientes.length > 0) {
-    clientes.forEach(function (cliente) {
-      var option = document.createElement("option");
-      option.value = cliente.id;
-      option.textContent = cliente.nombreFantasia + " - " + cliente.razonSocial;
-      clienteSelect.appendChild(option);
-    });
-  }
-}
-
 // Funcion para actualizar tabla de pedidos
 function actualizarTablaPedidos() {
   console.log("Prueba de Clientes", clientes);
   console.log("Prueba de Cadeterias", cadeterias);
-  let pedidos = JSON.parse(localStorage.getItem("pedidos"));
+  // let pedidos = JSON.parse(localStorage.getItem("pedidos"));
 
   let tbody = document.querySelector("#tablaPedidos tbody");
   // Limpiar la tabla actual
@@ -74,7 +54,7 @@ function actualizarTablaPedidos() {
     //SEGUNDO FILTRO
     let filtroFechaDesde = document.getElementById("filtroFechaDesde").value;
     let filtroFechaHasta = document.getElementById("filtroFechaHasta").value;
-    let filtroCliente = document.getElementById("filtroCliente").value;
+    let filtroCliente = document.getElementById("inputBuscarCliente").value;
     console.log("filtrofechaDESDE", filtroFechaDesde);
     console.log("filtroFechaHASTA", filtroFechaHasta);
     console.log("filtroCLIENTE", filtroCliente);
@@ -92,7 +72,9 @@ function actualizarTablaPedidos() {
 
     if (filtroCliente != "") {
       pedidosFiltrados = pedidosFiltrados.filter(
-        (p) => p.cliente.id == filtroCliente
+        (p) =>
+          p.cliente.nombreFantasia + " - " + p.cliente.razonSocial ==
+          filtroCliente
       );
     }
 
@@ -205,20 +187,25 @@ function actualizarTablaPedidos() {
 // Función para mostrar los detalles del pedido en el modal
 function mostrarDetallePedido(idPedido) {
   // Buscar el pedido por su ID en el arreglo de pedidos
-  let pedido = pedidos.find((p) => p.id === idPedido);
-  console.log(pedido.articulos);
+  var pedido = pedidos.find((p) => p.id === idPedido);
   if (pedido) {
     // Actualizar el contenido del modal con los detalles del pedido
-    document.getElementById("detalleIdPedido").innerText = pedido.id;
-    document.getElementById("detalleFechaPedido").innerText = new Date(
-      pedido.fecha
-    ).toLocaleDateString("es-ES", { dateStyle: "medium" });
-    document.getElementById("detalleEstadoPedido").innerText =
+    document.getElementById("detalleIdPedido").innerHTML = pedido.id;
+    document.getElementById("detalleEstadoPedido").innerHTML =
       pedido.estado.replace(/_/g, " ");
     document.getElementById("detalleClientePedido").innerHTML =
       pedido.cliente.nombreFantasia + " - " + pedido.cliente.razonSocial;
-    document.getElementById("detalleCadeteriaPedido").innerText =
+    document.getElementById("detalleCadeteriaPedido").innerHTML =
       pedido.cadeteria.nombreCadeteria;
+    document.getElementById("observacionesPedido").innerHTML =
+      pedido.observaciones;
+    document.getElementById("detalleFechaPedido").innerHTML = pedido.fecha;
+    document.getElementById("valoracion").innerHTML = pedido.valoracion;
+    document.getElementById("numeroEntrega").innerHTML = pedido.numeroEntrega;
+    document.getElementById("numeroRastreo").innerHTML = pedido.numeroRastreo;
+    pedido.marcadoEntregadoPorCLiente
+      ? (document.getElementById("detalleRecibido").innerHTML = "SI")
+      : (document.getElementById("detalleRecibido").innerHTML = "NO");
 
     // Llenar la tabla con los artículos del pedido
     // Llenar la tabla con los artículos del pedido
@@ -254,29 +241,16 @@ function mostrarDetallePedido(idPedido) {
 //MODAL
 
 // Función para cerrar el modal
+
 function cerrarModal() {
   let modal = document.getElementById("pedidoModal");
   modal.classList.remove("show");
   modal.style.display = "none";
   document.body.classList.remove("modal-open");
 }
-
-window.addEventListener("click", function (event) {
-  let modal = document.getElementById("pedidoModal");
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-});
-
-// Evento para cerrar el modal al hacer clic en la "x" de la derecha y fuera del modal
 document
-  .querySelector(".modal-header .close")
+  .getElementById("btnCerrarModal")
   .addEventListener("click", cerrarModal);
-document.querySelector(".modal").addEventListener("click", function (event) {
-  if (event.target === this) {
-    cerrarModal();
-  }
-});
 
 async function iniciarArmado(idPedido) {
   const request = await fetch(
@@ -324,6 +298,7 @@ async function pedidoListo(idPedido) {
       localStorage.setItem("pedidoParaArmar", JSON.stringify(response.pedido));
       localStorage.setItem("pedidos", JSON.stringify(response.pedidos));
       actualizarTablaPedidos();
+      alert(response.mensaje);
     } else {
       alert(response.mensaje);
     }
@@ -350,7 +325,7 @@ async function pedidoEntregado(idPedido) {
     if (response.pedidos) {
       localStorage.setItem("pedidos", JSON.stringify(response.pedidos));
       actualizarTablaPedidos();
-      alert("FIN DEL CICLOOOOOOOOO");
+      alert(response.mensaje);
     } else {
       alert(response.mensaje);
     }
@@ -417,23 +392,32 @@ async function actualizarPedidos() {
 
 function modalNumeroEntrega(idPedido) {
   let pedido = pedidos.find((p) => p.id === idPedido);
+
   if (pedido) {
     // Mostrar el modal
     let modalNumeroEntrega = document.getElementById("modalNumeroEntrega");
     modalNumeroEntrega.classList.add("show");
     modalNumeroEntrega.style.display = "block";
+    document.getElementById("numeroDeEntrega").value = pedido.numeroEntrega;
 
     const btnNumeroEntrega = document.getElementById("btnNumeroEntrega");
 
-    btnNumeroEntrega.addEventListener("click", function () {
+    // Define la función de manejo de clic por separado
+    function clickHandler() {
       let numeroDeEntrega = document.getElementById("numeroDeEntrega").value;
       if (numeroDeEntrega != "") {
-        agregarNumeroEntrega(pedido, numeroDeEntrega); // Llama a la función valorar() con el valor de la estrella
+        agregarNumeroEntrega(pedido, numeroDeEntrega);
         modalNumeroEntrega.style.display = "none";
+
+        // Remueve el event listener después de ejecutarlo una vez
+        btnNumeroEntrega.removeEventListener("click", clickHandler);
       } else {
-        alert("El ticket con el numero de Entrega no puede ser vacio");
+        alert("El ticket con el número de Entrega no puede estar vacío");
       }
-    });
+    }
+
+    // Agregar el event listener al botón
+    btnNumeroEntrega.addEventListener("click", clickHandler);
 
     // Agregar evento al botón de cerrar
     const cerrarModal = document.getElementById("cerrarModal");
@@ -462,6 +446,7 @@ async function agregarNumeroEntrega(pedido, numeroDeEntrega) {
   if (request.ok) {
     if (response.pedidos) {
       localStorage.setItem("pedidos", JSON.stringify(response.pedidos));
+      pedidos = JSON.parse(localStorage.getItem("pedidos"));
       actualizarTablaPedidos();
       alert(response.mensaje);
     } else {
@@ -474,23 +459,32 @@ async function agregarNumeroEntrega(pedido, numeroDeEntrega) {
 
 function modalNumeroRastreo(idPedido) {
   let pedido = pedidos.find((p) => p.id === idPedido);
+
   if (pedido) {
     // Mostrar el modal
     let modalNumeroRastreo = document.getElementById("modalNumeroRastreo");
     modalNumeroRastreo.classList.add("show");
     modalNumeroRastreo.style.display = "block";
+    document.getElementById("numeroDeRastreo").value = pedido.numeroRastreo;
 
     const btnNumeroRastreo = document.getElementById("btnNumeroDeRastreo");
 
-    btnNumeroRastreo.addEventListener("click", function () {
+    // Define la función de manejo de clic por separado
+    function clickHandler() {
       let numeroDeRastreo = document.getElementById("numeroDeRastreo").value;
       if (numeroDeRastreo != "") {
-        agregarNumeroRastreo(pedido, numeroDeRastreo); // Llama a la función valorar() con el valor de la estrella
+        agregarNumeroRastreo(pedido, numeroDeRastreo);
         modalNumeroRastreo.style.display = "none";
+
+        // Remueve el event listener después de ejecutarlo una vez
+        btnNumeroRastreo.removeEventListener("click", clickHandler);
       } else {
-        alert("El ticket con el numero de Rastreo no puede ser vacio");
+        alert("El ticket con el número de Rastreo no puede estar vacío");
       }
-    });
+    }
+
+    // Agregar el event listener al botón
+    btnNumeroRastreo.addEventListener("click", clickHandler);
 
     // Agregar evento al botón de cerrar
     const cerrarModal = document.getElementById("cerrarModalRastreo");
@@ -503,7 +497,6 @@ function modalNumeroRastreo(idPedido) {
 }
 
 async function agregarNumeroRastreo(pedido, numeroRastreo) {
-  alert("NICO SOS MUY CRA RASTREO");
   const request = await fetch(
     `http://localhost:8080/auxdepo/numeroRastreo?idPedido=${pedido.id}&numeroRastreo=${numeroRastreo}`,
     {
@@ -520,8 +513,9 @@ async function agregarNumeroRastreo(pedido, numeroRastreo) {
   if (request.ok) {
     if (response.pedidos) {
       localStorage.setItem("pedidos", JSON.stringify(response.pedidos));
-      actualizarTablaPedidos();
+      pedidos = JSON.parse(localStorage.getItem("pedidos"));
       alert(response.mensaje);
+      actualizarTablaPedidos();
     } else {
       alert(response.mensaje);
     }
@@ -529,3 +523,56 @@ async function agregarNumeroRastreo(pedido, numeroRastreo) {
     alert(request.status);
   }
 }
+
+//COPIAR TODO ESTO
+function buscarClientes() {
+  const textoBusqueda = inputBuscarCliente.value.trim().toLowerCase();
+  const clientesCoincidentes = clientes.filter(
+    (cliente) =>
+      cliente.nombreFantasia.toLowerCase().includes(textoBusqueda) ||
+      cliente.razonSocial.toLowerCase().includes(textoBusqueda)
+  );
+
+  if (clientesCoincidentes.length === 1) {
+    console.log("un solo cliente coincide", clientesCoincidentes);
+    inputBuscarCliente.value =
+      clientesCoincidentes[0].nombreFantasia +
+      " - " +
+      clientesCoincidentes[0].razonSocial;
+  } else if (clientesCoincidentes.length > 1) {
+    // Mostrar el modal con los clientes coincidentes
+    console.log("varios coinciden", clientesCoincidentes);
+    mostrarModalSeleccionCliente(clientesCoincidentes);
+  }
+}
+
+// Función para mostrar el modal con los clientes coincidentes
+function mostrarModalSeleccionCliente(clientesCoincidentes) {
+  const listaClientesElement = document.getElementById("clientes");
+  listaClientesElement.innerHTML = "";
+
+  clientesCoincidentes.forEach((cliente) => {
+    const li = document.createElement("li");
+    li.textContent = `${cliente.nombreFantasia} - ${cliente.razonSocial}`;
+    li.onclick = function () {
+      inputBuscarCliente.value =
+        cliente.nombreFantasia + " - " + cliente.razonSocial;
+      cerrarModalSeleccionCliente();
+    };
+    listaClientesElement.appendChild(li);
+  });
+
+  modalSeleccionCliente.style.display = "block";
+}
+
+// Función para cerrar el modal de selección de cliente
+function cerrarModalSeleccionCliente() {
+  modalSeleccionCliente.style.display = "none";
+}
+
+// Cerrar el modal si se hace clic fuera de él
+window.onclick = function (event) {
+  if (event.target == modalSeleccionCliente) {
+    cerrarModalSeleccionCliente();
+  }
+};
