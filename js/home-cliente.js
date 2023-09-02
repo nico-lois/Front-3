@@ -291,8 +291,6 @@ function modalValorarPedido(idPedido) {
 }
 
 async function valorar(valor, pedido) {
-  alert("Nico sos un cra", valor, pedido);
-
   const request = await fetch(
     `http://localhost:8080/cliente/valorar?id=${pedido.id}&idCliente=${cliente.id}&valor=${valor}`,
     {
