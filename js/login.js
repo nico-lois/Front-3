@@ -3,7 +3,7 @@ async function iniciarSesion() {
   const password = document.getElementById("contraseña").value;
 
   const request = await fetch(
-    "https://urugestionhub.azurewebsites.net/login?username=" +
+    "http://urugestionhub.azurewebsites.net/login?username=" +
       username +
       "&password=" +
       password,
