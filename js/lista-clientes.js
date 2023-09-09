@@ -140,8 +140,10 @@ function modalCargarPDF(idcliente) {
   if (cliente) {
     // Mostrar el modal
     let pdfModal = document.getElementById("pdfModal");
-    pdfModal.classList.add("show");
     pdfModal.style.display = "block";
+
+    // Obtener el botón para cerrar el modal (la "X")
+    let closeButton = pdfModal.querySelector(".close");
 
     // Obtener los elementos del modal
     let pdfFileInput = document.getElementById("pdfFile");
@@ -151,12 +153,17 @@ function modalCargarPDF(idcliente) {
     btnSave.addEventListener("click", function () {
       if (pdfFileInput.files.length > 0) {
         guardarPDF(pdfFileInput.files[0], cliente);
-        pdfModal.style.display = "none";
+        pdfModal.style.display = "none"; // Cerrar el modal
         clientes = JSON.parse(localStorage.getItem("clientes"));
         actualizarTabla();
       } else {
         alert("Por favor, selecciona un archivo PDF.");
       }
+    });
+
+    // Agregar evento para cerrar el modal cuando se hace clic en la "X"
+    closeButton.addEventListener("click", function () {
+      pdfModal.style.display = "none"; // Cerrar el modal
     });
   } else {
     alert("Cliente No Encontrado");
@@ -167,7 +174,6 @@ async function guardarPDF(pdfFile, cliente) {
   //ACA SE HACE EL TECH
   if (pdfFile) {
     cargarPDF(cliente, pdfFile);
-    actualizarTabla();
   } else {
     alert("No se seleccionó ningún archivo PDF.");
   }
