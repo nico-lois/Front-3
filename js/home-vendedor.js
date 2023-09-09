@@ -224,7 +224,7 @@ async function eliminarPedido(idPedido) {
   if (confirmacion) {
     // Código para eliminar el elemento
     const request = await fetch(
-      `http://localhost:8080/eliminarPedido?pedidoId=${idPedido}&idVendedor=${vendedor.id}`,
+      `https://urugestionhub.azurewebsites.net/eliminarPedido?pedidoId=${idPedido}&idVendedor=${vendedor.id}`,
       {
         method: "POST",
         headers: {
@@ -254,7 +254,7 @@ async function eliminarPedido(idPedido) {
 
 async function editarPedido(idPedido) {
   const request = await fetch(
-    `http://localhost:8080/editarPedido?idPedido=${idPedido}&idVendedor=${vendedor.id}`,
+    `https://urugestionhub.azurewebsites.net/editarPedido?idPedido=${idPedido}&idVendedor=${vendedor.id}`,
     {
       method: "POST",
       headers: {
@@ -290,7 +290,7 @@ function actualizarNombreVendedor() {
 
 async function actualizarPedidos() {
   const request = await fetch(
-    `http://localhost:8080/actualizar?idVendedor=${vendedor.id}`,
+    `https://urugestionhub.azurewebsites.net/actualizar?idVendedor=${vendedor.id}`,
     {
       method: "POST",
       headers: {

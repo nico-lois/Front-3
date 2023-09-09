@@ -195,7 +195,7 @@ document
 async function pedidoFacturado(idPedido) {
   const request = await fetch(
     //HAY QUE AGREGAR EL ADMINISTRATIVO EN EL FETCH (EL ID)
-    `http://localhost:8080/admin/pedidoFacturado?pedidoId=${idPedido}&admin=${admin.id}`,
+    `https://urugestionhub.azurewebsites.net/admin/pedidoFacturado?pedidoId=${idPedido}&admin=${admin.id}`,
     {
       method: "POST",
       headers: {
@@ -230,13 +230,16 @@ function actualizarNombreAdmin() {
 }
 
 async function actualizarPedidos() {
-  const request = await fetch(`http://localhost:8080/admin/actualizar`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
+  const request = await fetch(
+    `https://urugestionhub.azurewebsites.net/admin/actualizar`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   const response = await request.json();
 

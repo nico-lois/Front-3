@@ -58,14 +58,17 @@ async function registarCliente() {
 
   console.log("cliente", cliente);
 
-  const request = await fetch(`http://localhost:8080/cliente/registroCliente`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(cliente),
-  });
+  const request = await fetch(
+    `https://urugestionhub.azurewebsites.net/cliente/registroCliente`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cliente),
+    }
+  );
 
   const response = await request.json();
   if (request.ok) {

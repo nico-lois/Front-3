@@ -106,7 +106,7 @@ async function guardarAvance() {
   }
 
   const request = await fetch(
-    `http://localhost:8080/auxdepo/guardarAvance?pedidoId=${idPedido}`,
+    `https://urugestionhub.azurewebsites.net/auxdepo/guardarAvance?pedidoId=${idPedido}`,
     {
       method: "POST",
       headers: {
@@ -141,7 +141,7 @@ async function pedidoArmado() {
   }
 
   const request = await fetch(
-    `http://localhost:8080/auxdepo/pedidoArmado?pedidoId=${idPedido}&auxId=${Auxiliar.id}`,
+    `https://urugestionhub.azurewebsites.net/auxdepo/pedidoArmado?pedidoId=${idPedido}&auxId=${Auxiliar.id}`,
     {
       method: "POST",
       headers: {

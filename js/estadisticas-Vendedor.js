@@ -21,7 +21,7 @@ function cargarModoActual() {
 actualizarPedidos();
 async function actualizarPedidos() {
   const request = await fetch(
-    `http://localhost:8080/actualizar?idVendedor=${vendedor.id}`,
+    `https://urugestionhub.azurewebsites.net/actualizar?idVendedor=${vendedor.id}`,
     {
       method: "POST",
       headers: {

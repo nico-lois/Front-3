@@ -1,7 +1,7 @@
 async function abrirPDF(clienteId) {
   try {
     const response = await fetch(
-      `http://localhost:8080/cliente/verPdf?id=${clienteId}`,
+      `https://urugestionhub.azurewebsites.net/cliente/verPdf?id=${clienteId}`,
       {
         method: "POST", // Agregar el método POST
       }
@@ -116,14 +116,17 @@ async function cargarPDF(cliente, pdf) {
   let pdfByteArray = pdfFile ? await readFileAsByteArray(pdfFile) : null;
   cliente.pdfData = pdfByteArray;
 
-  const request = await fetch(`http://localhost:8080/cliente/registroCliente`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(cliente),
-  });
+  const request = await fetch(
+    `https://urugestionhub.azurewebsites.net/cliente/registroCliente`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cliente),
+    }
+  );
 
   const response = await request.json();
   if (request.ok) {

@@ -254,7 +254,7 @@ document
 
 async function iniciarArmado(idPedido) {
   const request = await fetch(
-    `http://localhost:8080/auxdepo/iniciarArmado?pedidoId=${idPedido}`,
+    `https://urugestionhub.azurewebsites.net/auxdepo/iniciarArmado?pedidoId=${idPedido}`,
     {
       method: "POST",
       headers: {
@@ -281,7 +281,7 @@ async function iniciarArmado(idPedido) {
 
 async function pedidoListo(idPedido) {
   const request = await fetch(
-    `http://localhost:8080/auxdepo/pedidoListo?pedidoId=${idPedido}`,
+    `https://urugestionhub.azurewebsites.net/auxdepo/pedidoListo?pedidoId=${idPedido}`,
     {
       method: "POST",
       headers: {
@@ -309,7 +309,7 @@ async function pedidoListo(idPedido) {
 
 async function pedidoEntregado(idPedido) {
   const request = await fetch(
-    `http://localhost:8080/auxdepo/pedidoEntregado?pedidoId=${idPedido}`,
+    `https://urugestionhub.azurewebsites.net/auxdepo/pedidoEntregado?pedidoId=${idPedido}`,
     {
       method: "POST",
       headers: {
@@ -336,7 +336,7 @@ async function pedidoEntregado(idPedido) {
 
 async function enviarWP(idPedido) {
   const request = await fetch(
-    `http://localhost:8080/enviarWP?pedidoId=${idPedido}`,
+    `https://urugestionhub.azurewebsites.net/enviarWP?pedidoId=${idPedido}`,
     {
       method: "POST",
       headers: {
@@ -362,13 +362,16 @@ async function enviarWP(idPedido) {
 }
 
 async function actualizarPedidos() {
-  const request = await fetch(`http://localhost:8080/auxdepo/actualizar`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
+  const request = await fetch(
+    `https://urugestionhub.azurewebsites.net/auxdepo/actualizar`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   const response = await request.json();
 
@@ -431,7 +434,7 @@ function modalNumeroEntrega(idPedido) {
 
 async function agregarNumeroEntrega(pedido, numeroDeEntrega) {
   const request = await fetch(
-    `http://localhost:8080/auxdepo/numeroEntrega?idPedido=${pedido.id}&numeroEntrega=${numeroDeEntrega}`,
+    `https://urugestionhub.azurewebsites.net/auxdepo/numeroEntrega?idPedido=${pedido.id}&numeroEntrega=${numeroDeEntrega}`,
     {
       method: "POST",
       headers: {
@@ -498,7 +501,7 @@ function modalNumeroRastreo(idPedido) {
 
 async function agregarNumeroRastreo(pedido, numeroRastreo) {
   const request = await fetch(
-    `http://localhost:8080/auxdepo/numeroRastreo?idPedido=${pedido.id}&numeroRastreo=${numeroRastreo}`,
+    `https://urugestionhub.azurewebsites.net/auxdepo/numeroRastreo?idPedido=${pedido.id}&numeroRastreo=${numeroRastreo}`,
     {
       method: "POST",
       headers: {

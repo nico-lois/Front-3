@@ -25,7 +25,7 @@ async function registarCadeteria() {
   console.log("cadeteria", cadeteria);
 
   const request = await fetch(
-    "http://localhost:8080/cadeteria/agregarCadeteria",
+    "https://urugestionhub.azurewebsites.net/cadeteria/agregarCadeteria",
     {
       method: "POST",
       headers: {

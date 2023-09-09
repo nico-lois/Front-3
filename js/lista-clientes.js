@@ -104,7 +104,7 @@ async function eliminar(id) {
   if (confirmacion) {
     // Código para eliminar el elemento
     const request = await fetch(
-      `http://localhost:8080/eliminarCliente?idCliente=${id}`,
+      `https://urugestionhub.azurewebsites.net/eliminarCliente?idCliente=${id}`,
       {
         method: "DELETE",
         headers: {

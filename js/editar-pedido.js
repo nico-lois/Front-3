@@ -226,14 +226,17 @@ async function agregarPedido() {
   console.log("vende", pedido.vendedorId);
   console.log("array", pedido.articulos);
 
-  const request = await fetch("http://localhost:8080/agregarPedido", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(pedido),
-  });
+  const request = await fetch(
+    "https://urugestionhub.azurewebsites.net/agregarPedido",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pedido),
+    }
+  );
 
   const response = await request.json();
 

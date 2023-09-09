@@ -38,7 +38,7 @@ function actualizarTabla() {
 
 async function modificarCadeteriaPreferencia(valorSeleccionado) {
   const request = await fetch(
-    "http://localhost:8080/cliente/modificarCadeteria?id=" +
+    "https://urugestionhub.azurewebsites.net/cliente/modificarCadeteria?id=" +
       cliente.id +
       "&cadeteriaDePreferencia=" +
       valorSeleccionado,

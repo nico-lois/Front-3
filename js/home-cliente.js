@@ -181,7 +181,7 @@ document.querySelector(".modal").addEventListener("click", function (event) {
 
 async function marcacionEntregado(idPedido) {
   const request = await fetch(
-    `http://localhost:8080/cliente/marcadoRecibidoPorCliente?id=${idPedido}&idCliente=${cliente.id}`,
+    `https://urugestionhub.azurewebsites.net/cliente/marcadoRecibidoPorCliente?id=${idPedido}&idCliente=${cliente.id}`,
     {
       method: "POST",
       headers: {
@@ -222,7 +222,7 @@ async function estadoDeCuenta() {
 
 async function actualizarPedidos() {
   const request = await fetch(
-    `http://localhost:8080/actualizarPedidosClientes?idCliente=${cliente.id}`,
+    `https://urugestionhub.azurewebsites.net/actualizarPedidosClientes?idCliente=${cliente.id}`,
     {
       method: "POST",
       headers: {
@@ -292,7 +292,7 @@ function modalValorarPedido(idPedido) {
 
 async function valorar(valor, pedido) {
   const request = await fetch(
-    `http://localhost:8080/cliente/valorar?id=${pedido.id}&idCliente=${cliente.id}&valor=${valor}`,
+    `https://urugestionhub.azurewebsites.net/cliente/valorar?id=${pedido.id}&idCliente=${cliente.id}&valor=${valor}`,
     {
       method: "POST",
       headers: {

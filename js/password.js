@@ -25,7 +25,7 @@ async function cambiarPassword() {
   if (passNuevo != "" && passViejo != "" && passNuevo == passNuevoRepetir) {
     console.log(usuario);
     const request = await fetch(
-      `http://localhost:8080/login/modificarPass?id=${usuario.id}&passwordviejo=${passViejo}&passwordnuevo=${passNuevo}`,
+      `https://urugestionhub.azurewebsites.net/login/modificarPass?id=${usuario.id}&passwordviejo=${passViejo}&passwordnuevo=${passNuevo}`,
       {
         method: "POST",
         headers: {

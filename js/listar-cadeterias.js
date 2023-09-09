@@ -88,7 +88,7 @@ async function eliminar(id) {
   if (confirmacion) {
     // Código para eliminar el elemento
     const request = await fetch(
-      `http://localhost:8080/eliminarCadeteria?cadeteriaid=${id}`,
+      `https://urugestionhub.azurewebsites.net/eliminarCadeteria?cadeteriaid=${id}`,
       {
         method: "POST",
         headers: {
