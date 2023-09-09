@@ -42,7 +42,7 @@ async function cambiarPassword() {
         alert(response.mensaje);
         window.location.href = "javascript:window.history.back()";
       } else {
-        alert.apply(response, mensaje);
+        alert(response.mensaje);
       }
     } else {
       alert(request.status);

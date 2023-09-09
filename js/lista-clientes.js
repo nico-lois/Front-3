@@ -50,7 +50,10 @@ function actualizarTabla() {
                           <i class='bx bx-edit-alt'></i>
                       </a>
                   </td>`;
-        if (localStorage.getItem("tipo") == "Admin") {
+        if (
+          localStorage.getItem("tipo") == "Admin" ||
+          localStorage.getItem("tipo") == "Vendedor"
+        ) {
           row.innerHTML += `<td>
                       <a href="#" onclick="modalCargarPDF(${cliente.id})">
                           <i class='bx bx-upload'></i>

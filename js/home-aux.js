@@ -297,6 +297,7 @@ async function pedidoListo(idPedido) {
     if (response.pedidos) {
       localStorage.setItem("pedidoParaArmar", JSON.stringify(response.pedido));
       localStorage.setItem("pedidos", JSON.stringify(response.pedidos));
+      pedidos = JSON.parse(localStorage.getItem("pedidos"));
       actualizarTablaPedidos();
       alert(response.mensaje);
     } else {
@@ -324,6 +325,7 @@ async function pedidoEntregado(idPedido) {
   if (request.ok) {
     if (response.pedidos) {
       localStorage.setItem("pedidos", JSON.stringify(response.pedidos));
+      pedidos = JSON.parse(localStorage.getItem("pedidos"));
       actualizarTablaPedidos();
       alert(response.mensaje);
     } else {
@@ -351,6 +353,7 @@ async function enviarWP(idPedido) {
   if (request.ok) {
     if (response.pedidos) {
       localStorage.setItem("pedidos", JSON.stringify(response.pedidos));
+      pedidos = JSON.parse(localStorage.getItem("pedidos"));
       actualizarTablaPedidos();
       alert(response.mensaje);
     } else {
