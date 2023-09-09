@@ -167,7 +167,7 @@ async function guardarPDF(pdfFile, cliente) {
   //ACA SE HACE EL TECH
   if (pdfFile) {
     cargarPDF(cliente, pdfFile);
-    actualizarTablaClientes();
+    actualizarTabla();
   } else {
     alert("No se seleccionó ningún archivo PDF.");
   }
