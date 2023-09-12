@@ -132,7 +132,6 @@ async function cargarPDF(cliente, pdf) {
   if (request.ok) {
     if (response.cliente) {
       localStorage.setItem("clientes", JSON.stringify(response.clientes));
-      //actualizarTablaClientes();
       alert(response.mensaje);
       localStorage.removeItem("clienteEditar");
       //window.location.href = "javascript:window.history.back()";
