@@ -159,6 +159,16 @@ function mostrarDetallePedido(idPedido) {
     const tablaArticulos = document.getElementById("tablaArticulos");
     tablaArticulos.innerHTML = "";
 
+    // pedido.articulos.forEach((articulo) => {
+    //   if (articulo.eliminado == false) {
+    //     const fila = document.createElement("tr");
+    //     fila.innerHTML = `
+    //     <td>${articulo.nombre}</td>
+    //     <td>${articulo.cantidad}</td>
+    //   `;
+    //     tablaArticulos.appendChild(fila);
+    //   }
+    // });
     pedido.articulos.forEach((articulo) => {
       if (articulo.eliminado == false) {
         const fila = document.createElement("tr");
@@ -166,6 +176,9 @@ function mostrarDetallePedido(idPedido) {
         <td>${articulo.nombre}</td>
         <td>${articulo.cantidad}</td>
       `;
+        if (!articulo.stock) {
+          fila.classList.add("fila-sin-stock");
+        }
         tablaArticulos.appendChild(fila);
       }
     });

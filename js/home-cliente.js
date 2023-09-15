@@ -134,19 +134,33 @@ function mostrarDetallePedido(idPedido) {
     const tablaArticulos = document.getElementById("tablaArticulos");
     tablaArticulos.innerHTML = "";
     let contador = 0;
+    // pedido.articulos.forEach((articulo) => {
+    //   if (articulo.eliminado == false) {
+    //     contador++;
+    //     const fila = document.createElement("tr");
+    //     fila.className = articulo.eliminado
+    //       ? "fila-eliminada"
+    //       : articulo.agregado
+    //       ? "fila-agregada"
+    //       : "";
+    //     fila.innerHTML = `
+    //   <td>${articulo.nombre}</td>
+    //   <td>${articulo.cantidad}</td>
+    // `;
+    //     tablaArticulos.appendChild(fila);
+    //   }
+    // });
+
     pedido.articulos.forEach((articulo) => {
       if (articulo.eliminado == false) {
-        contador++;
         const fila = document.createElement("tr");
-        fila.className = articulo.eliminado
-          ? "fila-eliminada"
-          : articulo.agregado
-          ? "fila-agregada"
-          : "";
         fila.innerHTML = `
-      <td>${articulo.nombre}</td>
-      <td>${articulo.cantidad}</td>
-    `;
+        <td>${articulo.nombre}</td>
+        <td>${articulo.cantidad}</td>
+      `;
+        if (!articulo.stock) {
+          fila.classList.add("fila-sin-stock");
+        }
         tablaArticulos.appendChild(fila);
       }
     });
