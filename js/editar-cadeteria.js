@@ -41,7 +41,9 @@ async function registarCadeteria() {
     if (response.cadeterias) {
       localStorage.setItem("cadeterias", JSON.stringify(response.cadeterias));
       alert(response.mensaje);
-      window.location.href = "javascript:window.history.back()";
+      window.location.href = `lista-cadeterias-${localStorage.getItem(
+        "tipo"
+      )}.html`;
     } else {
       alert(response.mensaje);
     }
