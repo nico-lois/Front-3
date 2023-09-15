@@ -84,7 +84,10 @@ async function registarCliente() {
       localStorage.setItem("clientes", JSON.stringify(response.clientes));
       alert(response.mensaje);
       localStorage.removeItem("clienteEditar");
-      window.location.href = "javascript:window.history.back()";
+      window.location.href = `lista-clientes-${localStorage.getItem(
+        "tipo"
+      )}.html`;
+      //window.location.href = "javascript:window.history.back()";
     } else {
       alert(response.mensaje);
     }
