@@ -70,6 +70,7 @@ function actualizarTablaPedidos() {
     }
 
     if (filtroFechaHasta != "") {
+      fechaHasta.setHours(23, 59, 59, 999);
       pedidosFiltrados = pedidosFiltrados.filter(
         (p) => p.fecha <= filtroFechaHasta
       );
