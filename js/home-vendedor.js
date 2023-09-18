@@ -87,7 +87,7 @@ function actualizarTablaPedidos() {
     pedidosFiltrados.forEach(function (pedido, index) {
       // Formatear la fecha en formato de fecha
       let fecha = new Date(pedido.fecha);
-      console.log("fecha antes de formatear");
+      console.log("fecha antes de formatear", fecha);
       let fechaFormateada = fecha.toLocaleDateString("es-ES", {
         dateStyle: "medium",
       });
