@@ -22,8 +22,9 @@ async function cambiarPassword() {
   console.log(passViejo);
   console.log(passNuevoRepetir);
   console.log(passNuevo);
+
   if (passNuevo == passViejo) {
-    return "La nueva contraseña tiene que ser distinta de la actual";
+    return alert("La nueva contraseña tiene que ser distinta de la actual");
   }
   if (passNuevo != "" && passViejo != "" && passNuevo == passNuevoRepetir) {
     console.log(usuario);
