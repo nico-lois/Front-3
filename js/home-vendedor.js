@@ -70,7 +70,6 @@ function actualizarTablaPedidos() {
     }
 
     if (filtroFechaHasta != "") {
-      fechaHasta.setHours(23, 59, 59, 999);
       pedidosFiltrados = pedidosFiltrados.filter(
         (p) => p.fecha <= filtroFechaHasta
       );
@@ -88,6 +87,7 @@ function actualizarTablaPedidos() {
     pedidosFiltrados.forEach(function (pedido, index) {
       // Formatear la fecha en formato de fecha
       let fecha = new Date(pedido.fecha);
+      console.log("fecha antes de formatear");
       let fechaFormateada = fecha.toLocaleDateString("es-ES", {
         dateStyle: "medium",
       });
