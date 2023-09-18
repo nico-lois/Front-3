@@ -86,11 +86,14 @@ function actualizarTablaPedidos() {
     // Recorre los pedidos y agrega las filas a la tabla
     pedidosFiltrados.forEach(function (pedido, index) {
       // Formatear la fecha en formato de fecha
-      let fecha = new Date(pedido.fecha + "Z"); // Agregar 'Z' para indicar que la fecha está en UTC
+      let fecha = new Date(pedido.fecha + "T00:00:00Z"); // Establece la hora a medianoche (00:00:00) en UTC
+      fecha.setHours(fecha.getHours() - 3); // Ajusta la hora según la zona horaria de Uruguay (GMT-0300)
+
       console.log("fecha antes de formatear", fecha);
       let fechaFormateada = fecha.toLocaleDateString("es-ES", {
         dateStyle: "medium",
       });
+      console.log("Fecha formateada:", fechaFormateada);
 
       // Formatear el estado con espacios
       let estadoFormateado = pedido.estado.replace(/_/g, " ");
