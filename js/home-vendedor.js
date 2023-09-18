@@ -86,7 +86,7 @@ function actualizarTablaPedidos() {
     // Recorre los pedidos y agrega las filas a la tabla
     pedidosFiltrados.forEach(function (pedido, index) {
       // Formatear la fecha en formato de fecha
-      let fecha = new Date(pedido.fecha);
+      let fecha = new Date(pedido.fecha + "Z"); // Agregar 'Z' para indicar que la fecha está en UTC
       console.log("fecha antes de formatear", fecha);
       let fechaFormateada = fecha.toLocaleDateString("es-ES", {
         dateStyle: "medium",
