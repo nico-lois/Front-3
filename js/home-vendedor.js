@@ -86,7 +86,8 @@ function actualizarTablaPedidos() {
     // Recorre los pedidos y agrega las filas a la tabla
     pedidosFiltrados.forEach(function (pedido, index) {
       // Formatear la fecha en formato de fecha
-      let fecha = new Date(pedido.fecha + "T00:00:00Z"); // Establece la hora a medianoche (00:00:00) en UTC
+      let fecha = new Date(pedido.fecha);
+      fecha.setHours(12, 0, 0, 0); // Establece la hora a medianoche (00:00:00) en UTC
       fecha.setHours(fecha.getHours() - 3); // Ajusta la hora según la zona horaria de Uruguay (GMT-0300)
 
       console.log("fecha antes de formatear", fecha);
