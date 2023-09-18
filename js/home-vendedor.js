@@ -86,7 +86,8 @@ function actualizarTablaPedidos() {
     // Recorre los pedidos y agrega las filas a la tabla
     pedidosFiltrados.forEach(function (pedido, index) {
       // Formatear la fecha en formato de fecha
-      let fecha = new Date(pedido.fecha + 1);
+      let fecha = new Date(pedido.fecha);
+      fecha.setDate(fecha.getDate() + 1);
 
       console.log("fecha antes de formatear", fecha);
       let fechaFormateada = fecha.toLocaleDateString("es-ES", {
