@@ -9,9 +9,10 @@ async function abrirPDF(clienteId) {
 
     const pdfBlob = await response.blob();
     console.log(pdfBlob);
-    if (pdfBlob.size == 0)
+    console.log(pdfBlob.size == 0);
+    if (pdfBlob.size == 0) {
       return alert("No tienes un estado de cuenta para descargar");
-
+    }
     const pdfURL = URL.createObjectURL(pdfBlob);
     const newWindow = window.open(pdfURL, "_blank");
 
