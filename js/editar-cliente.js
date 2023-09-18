@@ -36,6 +36,7 @@ document.getElementById("nombreCompleto").value =
 document.getElementById("nombreResponsable").value =
   clienteEditar.nombreResponsable || "";
 document.getElementById("mail").value = clienteEditar.mail || "";
+document.getElementById("dir").value = clienteEditar.direccionDeEntrega || "";
 document.getElementById("celular").value = clienteEditar.celular || "";
 
 async function registarCliente() {
