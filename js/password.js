@@ -26,6 +26,7 @@ async function cambiarPassword() {
   if (passNuevo == passViejo) {
     return alert("La nueva contraseña tiene que ser distinta de la actual");
   }
+
   if (passNuevo != "" && passViejo != "" && passNuevo == passNuevoRepetir) {
     console.log(usuario);
     const request = await fetch(
